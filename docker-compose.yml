@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: memorychain-postgres
+    environment:
+      POSTGRES_USER: memorychain
+      POSTGRES_PASSWORD: memorychain
+      POSTGRES_DB: memorychain
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U memorychain"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: memorychain-app
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: "postgresql://memorychain:memorychain@postgres:5432/memorychain"
+    env_file:
+      - .env.local
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+
+volumes:
+  postgres_data:
