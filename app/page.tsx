@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { ConnectButton } from '@mysten/dapp-kit'
 import { useCurrentAccount } from '@mysten/dapp-kit'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
+import { WalletConnectButton } from '@/components/wallet/WalletConnectButton'
 import {
   Brain, Shield, Zap, Database, Link2, Clock,
   ChevronRight, Sparkles, Globe, Lock
@@ -112,7 +112,7 @@ export default function LandingPage() {
           <a href="#how-it-works" className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden md:block">
             How it works
           </a>
-          <ConnectButton />
+          <WalletConnectButton />
         </div>
       </nav>
 
@@ -159,7 +159,7 @@ export default function LandingPage() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <ConnectButton />
+            <WalletConnectButton />
             <button
               onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -356,7 +356,7 @@ export default function LandingPage() {
             <p className="text-muted-foreground mb-8">
               Connect your wallet and have your first conversation. Your memories are forever.
             </p>
-            <ConnectButton />
+            <WalletConnectButton />
           </div>
         </motion.div>
       </section>

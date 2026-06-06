@@ -4,7 +4,7 @@ import { useCurrentAccount } from '@mysten/dapp-kit'
 import { useRouter, usePathname } from 'next/navigation'
 import { useEffect } from 'react'
 import Link from 'next/link'
-import { ConnectButton } from '@mysten/dapp-kit'
+import { WalletConnectButton } from '@/components/wallet/WalletConnectButton'
 import { Brain, MessageSquare, Database, User, BarChart3, ChevronRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 
@@ -78,7 +78,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               {account.address}
             </p>
           </div>
-          <ConnectButton />
+          <WalletConnectButton compact />
         </div>
       </aside>
 
