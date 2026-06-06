@@ -159,8 +159,9 @@ export default function ProfilePage() {
             {[
               { label: 'Network', value: process.env.NEXT_PUBLIC_SUI_NETWORK || 'testnet' },
               { label: 'Storage', value: 'Walrus Testnet' },
-              { label: 'Embeddings', value: 'OpenAI text-embedding-3-small' },
-              { label: 'Memory Model', value: process.env.NEXT_PUBLIC_OPENAI_MODEL || 'gpt-4o-mini' },
+              { label: 'AI Provider', value: 'OpenRouter' },
+              { label: 'Embeddings', value: 'openai/text-embedding-3-small' },
+              { label: 'Memory Model', value: process.env.NEXT_PUBLIC_OPENROUTER_MODEL || process.env.NEXT_PUBLIC_OPENAI_MODEL || 'openai/gpt-4o-mini' },
             ].map(({ label, value }) => (
               <div key={label} className="flex items-center justify-between text-sm">
                 <span className="text-muted-foreground">{label}</span>

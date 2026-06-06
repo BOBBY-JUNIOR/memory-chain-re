@@ -1,10 +1,51 @@
 import OpenAI from 'openai'
 import type { MemoryExtraction } from '@/types'
 
+const isOpenRouter =
+  !!process.env.OPENROUTER_API_KEY ||
+  process.env.OPENROUTER_BASE_URL?.includes('openrouter.ai') ||
+  process.env.OPENAI_BASE_URL?.includes('openrouter.ai')
+
+const baseURL =
+  process.env.OPENROUTER_BASE_URL ||
+  process.env.OPENAI_BASE_URL ||
+  (isOpenRouter ? 'https://openrouter.ai/api/v1' : 'https://api.openai.com/v1')
+
+const apiKey = process.env.OPENROUTER_API_KEY || process.env.OPENAI_API_KEY
+
+const siteUrl =
+  process.env.OPENROUTER_SITE_URL ||
+  process.env.NEXTAUTH_URL ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined)
+
+const defaultHeaders: Record<string, string> = {}
+
+if (isOpenRouter) {
+  if (siteUrl) defaultHeaders['HTTP-Referer'] = siteUrl
+  defaultHeaders['X-OpenRouter-Title'] = process.env.OPENROUTER_APP_NAME || 'MemoryChain AI'
+}
+
 export const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-  baseURL: process.env.OPENAI_BASE_URL || 'https://api.openai.com/v1',
+  apiKey,
+  baseURL,
+  defaultHeaders,
 })
+
+export function getChatModel() {
+  return (
+    process.env.OPENROUTER_MODEL ||
+    process.env.OPENAI_MODEL ||
+    (isOpenRouter ? 'openai/gpt-4o-mini' : 'gpt-4o-mini')
+  )
+}
+
+export function getEmbeddingModel() {
+  return (
+    process.env.OPENROUTER_EMBEDDING_MODEL ||
+    process.env.OPENAI_EMBEDDING_MODEL ||
+    (isOpenRouter ? 'openai/text-embedding-3-small' : 'text-embedding-3-small')
+  )
+}
 
 export async function extractMemory(
   userMessage: string,
@@ -12,7 +53,7 @@ export async function extractMemory(
 ): Promise<MemoryExtraction | null> {
   try {
     const response = await openai.chat.completions.create({
-      model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
+      model: getChatModel(),
       temperature: 0,
       messages: [
         {
@@ -66,7 +107,7 @@ Set is_memory: false if nothing significant to extract.`,
 export async function generateEmbedding(text: string): Promise<number[] | null> {
   try {
     const response = await openai.embeddings.create({
-      model: 'text-embedding-3-small',
+      model: getEmbeddingModel(),
       input: text,
     })
     return response.data[0]?.embedding ?? null

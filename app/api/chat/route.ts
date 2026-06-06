@@ -1,4 +1,4 @@
-import { openai, extractMemory, buildSystemPromptWithMemories } from '@/lib/openai'
+import { openai, extractMemory, buildSystemPromptWithMemories, getChatModel } from '@/lib/openai'
 import { searchMemories, saveMemory, getOrCreateUser } from '@/services/memory'
 import { NextRequest } from 'next/server'
 import type { MemoryCategory } from '@/types'
@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
 
     // Create streaming response
     const stream = await openai.chat.completions.create({
-      model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
+      model: getChatModel(),
       stream: true,
       messages: [
         { role: 'system', content: systemPrompt },
