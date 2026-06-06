@@ -45,7 +45,7 @@ export function ChatInterface({ walletAddress }: ChatInterfaceProps) {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="px-6 py-4 border-b border-white/6 flex items-center justify-between shrink-0">
+      <div className="px-4 py-3 border-b border-white/6 flex items-center justify-between shrink-0 md:px-6 md:py-4">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-full bg-gradient-to-br from-chain-500 to-violet-600 flex items-center justify-center">
             <Brain className="w-4 h-4 text-white" />
@@ -70,7 +70,7 @@ export function ChatInterface({ walletAddress }: ChatInterfaceProps) {
         )}
       </div>
 
-      <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+      <div className="flex-1 overflow-y-auto px-4 py-4 space-y-5 md:px-6 md:py-6 md:space-y-6">
         {messages.length === 0 ? (
           <EmptyState />
         ) : (
@@ -98,7 +98,7 @@ export function ChatInterface({ walletAddress }: ChatInterfaceProps) {
         <div ref={bottomRef} />
       </div>
 
-      <div className="px-6 py-4 border-t border-white/6 shrink-0">
+      <div className="px-4 py-3 border-t border-white/6 shrink-0 md:px-6 md:py-4">
         <div className="glass rounded-2xl border border-white/8 focus-within:border-chain-500/40 transition-colors">
           <textarea
             ref={textareaRef}
@@ -112,7 +112,7 @@ export function ChatInterface({ walletAddress }: ChatInterfaceProps) {
             style={{ maxHeight: '200px' }}
           />
           <div className="flex items-center justify-between px-4 pb-3">
-            <span className="text-xs text-muted-foreground/50 font-mono">
+            <span className="hidden text-xs text-muted-foreground/50 font-mono sm:inline">
               {isStreaming ? 'Generating...' : 'Enter to send - Shift+Enter for newline'}
             </span>
             <button
@@ -164,7 +164,7 @@ function MessageBubble({ message }: { message: ChatMessage }) {
         {isUser ? 'U' : <Brain className="w-4 h-4 text-violet-300" />}
       </div>
 
-      <div className={`max-w-[75%] ${isUser ? 'items-end' : 'items-start'} flex flex-col gap-1`}>
+      <div className={`max-w-[86%] sm:max-w-[75%] ${isUser ? 'items-end' : 'items-start'} flex flex-col gap-1 min-w-0`}>
         <div className={`rounded-2xl px-4 py-3 text-sm leading-relaxed ${
           isUser
             ? 'bg-chain-500/15 border border-chain-500/20 text-foreground'
@@ -173,7 +173,7 @@ function MessageBubble({ message }: { message: ChatMessage }) {
           {isEmpty ? (
             <TypingDots />
           ) : (
-            <div className="whitespace-pre-wrap">{message.content}</div>
+            <div className="whitespace-pre-wrap break-words">{message.content}</div>
           )}
         </div>
         <span className="text-xs text-muted-foreground/50 px-1">
@@ -221,7 +221,7 @@ function EmptyState() {
   ]
 
   return (
-    <div className="h-full flex flex-col items-center justify-center py-12">
+    <div className="h-full flex flex-col items-center justify-center px-2 py-8 md:py-12">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}

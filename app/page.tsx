@@ -94,30 +94,32 @@ export default function LandingPage() {
       <div className="fixed inset-0 dot-grid opacity-40 pointer-events-none" />
 
       {/* Nav */}
-      <nav className="relative z-10 flex items-center justify-between px-6 md:px-12 py-6 border-b border-white/5">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-chain-500 to-violet-600 flex items-center justify-center">
+      <nav className="relative z-10 flex items-center justify-between gap-3 px-4 py-4 border-b border-white/5 sm:px-6 md:px-12 md:py-6">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-chain-500 to-violet-600 flex items-center justify-center shrink-0">
             <Brain className="w-4 h-4 text-white" />
           </div>
-          <span className="font-display font-bold text-lg text-gradient-chain">MemoryChain</span>
-          <span className="text-xs px-2 py-0.5 rounded-full bg-chain-500/15 text-chain-400 border border-chain-500/20 font-mono">
+          <span className="font-display font-bold text-base text-gradient-chain truncate sm:text-lg">MemoryChain</span>
+          <span className="hidden text-xs px-2 py-0.5 rounded-full bg-chain-500/15 text-chain-400 border border-chain-500/20 font-mono sm:inline">
             AI
           </span>
         </div>
 
-        <div className="flex items-center gap-6">
+        <div className="flex shrink-0 items-center gap-3 md:gap-6">
           <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden md:block">
             Features
           </a>
           <a href="#how-it-works" className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden md:block">
             How it works
           </a>
-          <WalletConnectButton />
+          <div className="w-36 sm:w-auto">
+            <WalletConnectButton compact />
+          </div>
         </div>
       </nav>
 
       {/* Hero */}
-      <section className="relative z-10 px-6 md:px-12 pt-24 pb-32 max-w-7xl mx-auto">
+      <section className="relative z-10 px-4 pt-16 pb-20 sm:px-6 md:px-12 md:pt-24 md:pb-32 max-w-7xl mx-auto">
         <div className="text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -135,7 +137,7 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="font-display text-5xl md:text-7xl font-bold leading-[1.05] mb-6"
+            className="font-display text-4xl sm:text-5xl md:text-7xl font-bold leading-[1.08] mb-5 md:mb-6"
           >
             AI that{' '}
             <span className="text-gradient-chain">remembers</span>
@@ -147,7 +149,7 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed"
+            className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 md:mb-12 leading-relaxed"
           >
             MemoryChain AI stores your important memories permanently on the blockchain.
             Every conversation makes it smarter about you — forever.
@@ -174,7 +176,7 @@ export default function LandingPage() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="mt-20 relative max-w-3xl mx-auto"
+          className="mt-14 relative max-w-3xl mx-auto md:mt-20"
         >
           <div className="glass rounded-2xl border border-white/8 overflow-hidden glow-blue">
             {/* Terminal header */}
@@ -185,13 +187,13 @@ export default function LandingPage() {
               <span className="ml-3 text-xs text-muted-foreground font-mono">memorychain — chat</span>
             </div>
 
-            <div className="p-6 space-y-4">
+            <div className="p-4 space-y-4 sm:p-6">
               {/* Chat example */}
               <div className="flex gap-3">
                 <div className="w-8 h-8 rounded-full bg-chain-500/20 border border-chain-500/30 flex items-center justify-center shrink-0">
                   <span className="text-xs font-mono text-chain-400">U</span>
                 </div>
-                <div className="glass rounded-xl px-4 py-2.5 text-sm text-foreground/90">
+                <div className="glass rounded-xl px-3 py-2.5 text-sm text-foreground/90 sm:px-4">
                   I&apos;m building a decentralized coffee shop app on Sui blockchain
                 </div>
               </div>
@@ -200,7 +202,7 @@ export default function LandingPage() {
                 <div className="w-8 h-8 rounded-full bg-violet-500/20 border border-violet-500/30 flex items-center justify-center shrink-0">
                   <Brain className="w-4 h-4 text-violet-400" />
                 </div>
-                <div className="bg-violet-500/10 border border-violet-500/20 rounded-xl px-4 py-2.5 text-sm text-foreground/90 max-w-sm text-right">
+                <div className="bg-violet-500/10 border border-violet-500/20 rounded-xl px-3 py-2.5 text-sm text-foreground/90 max-w-[82%] text-right sm:max-w-sm sm:px-4">
                   That sounds fascinating! A decentralized coffee shop app would be a great use case for Sui&apos;s fast finality...
                 </div>
               </div>
@@ -210,19 +212,19 @@ export default function LandingPage() {
                 key={activeMemory}
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-emerald-500/8 border border-emerald-500/20"
+                className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-emerald-500/8 border border-emerald-500/20 sm:gap-3 sm:px-4"
               >
-                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-xs text-emerald-300 font-mono flex-1">
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                <span className="min-w-0 truncate text-xs text-emerald-300 font-mono flex-1">
                   Memory extracted: {MEMORY_EXAMPLES[activeMemory].text}
                 </span>
-                <span className={`text-xs px-2 py-0.5 rounded-full border ${CAT_COLORS[MEMORY_EXAMPLES[activeMemory].cat]}`}>
+                <span className={`shrink-0 text-xs px-2 py-0.5 rounded-full border ${CAT_COLORS[MEMORY_EXAMPLES[activeMemory].cat]}`}>
                   {MEMORY_EXAMPLES[activeMemory].cat}
                 </span>
               </motion.div>
 
               {/* Storage indicators */}
-              <div className="flex gap-2 pt-1">
+              <div className="flex flex-wrap gap-2 pt-1">
                 <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                   <Globe className="w-3 h-3 text-chain-400" />
                   <span className="font-mono">Walrus</span>
